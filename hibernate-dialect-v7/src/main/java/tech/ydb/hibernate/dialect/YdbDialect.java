@@ -316,11 +316,6 @@ public class YdbDialect extends Dialect {
     }
 
     @Override
-    public boolean supportsTemporaryTables() {
-        return false;
-    }
-
-    @Override
     public boolean supportsOffsetInSubquery() {
         return true;
     }
