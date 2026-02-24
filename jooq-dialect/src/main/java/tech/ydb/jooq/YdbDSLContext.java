@@ -164,4 +164,10 @@ public interface YdbDSLContext extends DSLContext {
 
     @CheckReturnValue
     <R extends Record> ReplaceValuesStepN<R> replaceInto(Table<R> into, Collection<? extends Field<?>> fields);
+
+    @CheckReturnValue
+    Batch batchUpsert(TableRecord<?>... records);
+
+    @CheckReturnValue
+    Batch batchUpsert(Collection<? extends TableRecord<?>> records);
 }
