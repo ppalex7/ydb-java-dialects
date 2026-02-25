@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import static jooq.generated.ydb.default_schema.Tables.SERIES;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class BatchUpsertTest extends BaseTest {
+public class BatchReplaceTest extends BaseTest {
 
     @Test
     public void testSimpleInsertViaBatchUpsert() {
@@ -20,7 +20,7 @@ public class BatchUpsertTest extends BaseTest {
         newRecord.setSeriesInfo("Info about the new series");
         newRecord.setReleaseDate(ULong.valueOf(20220101));
 
-        dsl.batchUpsert(newRecord)
+        dsl.batchReplace(newRecord)
                 .execute();
 
         Result<SeriesRecord> upsertedRecord = dsl.selectFrom(SERIES)
@@ -34,7 +34,7 @@ public class BatchUpsertTest extends BaseTest {
     public void testMultipleInsertViaBatchUpsert() {
         List<SeriesRecord> records = getExampleRecords();
 
-        dsl.batchUpsert(records)
+        dsl.batchReplace(records)
                 .execute();
 
         Result<SeriesRecord> upsertedRecords = dsl.selectFrom(SERIES).fetch();

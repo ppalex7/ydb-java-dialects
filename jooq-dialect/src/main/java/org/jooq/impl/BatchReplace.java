@@ -5,14 +5,14 @@ import org.jooq.Field;
 import org.jooq.TableRecord;
 import org.jooq.exception.DataAccessException;
 import org.reactivestreams.Subscriber;
-import tech.ydb.jooq.UpsertQuery;
+import tech.ydb.jooq.ReplaceQuery;
 import tech.ydb.jooq.YdbDSLContext;
 
-public class BatchUpsert extends AbstractBatch {
+public class BatchReplace extends AbstractBatch {
     private final YdbDSLContext ydbDSLContext;
     private final TableRecord<?>[] records;
 
-    public BatchUpsert(YdbDSLContext ydbDSLContext, TableRecord<?>[] records) {
+    public BatchReplace(YdbDSLContext ydbDSLContext, TableRecord<?>[] records) {
         super(ydbDSLContext.configuration());
         this.ydbDSLContext = ydbDSLContext;
         this.records = records;
@@ -43,7 +43,7 @@ public class BatchUpsert extends AbstractBatch {
         BatchBindStep batch = null;
 
         for (TableRecord<?> record : records) {
-            UpsertQuery<?> upsertQuery = ydbDSLContext.upsertQuery(record.getTable());
+            ReplaceQuery<?> upsertQuery = ydbDSLContext.replaceQuery(record.getTable());
 
             for (Field<?> field : record.fields()) {
                 upsertQuery.addValue((Field<Object>) field, record.get(field));
@@ -66,5 +66,4 @@ public class BatchUpsert extends AbstractBatch {
             }
         }
     }
-
 }

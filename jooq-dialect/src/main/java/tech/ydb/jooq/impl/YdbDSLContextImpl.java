@@ -342,12 +342,12 @@ public class YdbDSLContextImpl extends DefaultDSLContext implements YdbDSLContex
     }
 
     @Override
-    public Batch batchUpsert(TableRecord<?>... records) {
-        return new BatchUpsert(this, records);
+    public Batch batchReplace(TableRecord<?>... records) {
+        return new BatchReplace(this, records);
     }
 
     @Override
-    public Batch batchUpsert(Collection<? extends TableRecord<?>> records) {
-        return batchUpsert(records.toArray(TableRecord[]::new));
+    public Batch batchReplace(Collection<? extends TableRecord<?>> records) {
+        return batchReplace(records.toArray(TableRecord[]::new));
     }
 }
